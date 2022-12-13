@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "book")
@@ -25,6 +26,11 @@ public class BookEntity {
     private AuthorEntity author;
     private Integer pageNumber;
     private LocalDate releaseDate;
+    @ManyToMany
+    @JoinTable(name = "book_category_mapping",
+    joinColumns = @JoinColumn(name = "book_id"),
+    inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<CategoryEntity> categories;
 
     public boolean hasAuthor() {
         return author != null;
